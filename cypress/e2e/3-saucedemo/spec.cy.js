@@ -1,12 +1,29 @@
 import HomePage from "../../pageObjects/Home.page";
 import LoginPage from "../../pageObjects/Login.page";
 import BasePage from "../../pageObjects/Base.page";
+import CartPage from "../../pageObjects/Cart.page";
 
 describe("Saucedemo", () => {
   beforeEach(() => {
     cy.visit("https://www.saucedemo.com/");
   });
 
+  it("1. Scenario 1", () => {
+    LoginPage.usernameField.type("standard_user");
+    LoginPage.passwordField.type("secret_sauce");
+    LoginPage.loginButton.should("be.visible");
+    LoginPage.loginButton.click();
+    LoginPage.loginButton.should("not.exist");
+
+  });
+  
+  it("2. Login scenario - Negative case", () => {
+    LoginPage.usernameField.type("standard_user");
+    LoginPage.passwordField.type("secret_sauce");
+    LoginPage.loginButton.click();
+    LoginPage.loginButton.should("have.text", "Epic sadface: Username and password do not match any user in this service");
+  });
+  
   it("3.Login  Scenario", () => {
     // Log into App
     LoginPage.usernameField.type("standard_user");
@@ -62,7 +79,9 @@ describe("Saucedemo", () => {
     //add to cart "Sauce Labs Bolt T-Shirt"
     HomePage.addToCartSauceLabTShirt.click();
     //open cart create CartsPage object
+    CartPage.visit();
     //validate that we see "Sauce Labs Backpack" and "Sauce Labs Bolt T-Shirt"
+    
     //validate that we see 2 items in cart list
     //click checkout (create new page object = CheckOutStepOne)
     //set firstname, lastname, zip code

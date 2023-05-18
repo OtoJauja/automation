@@ -5,9 +5,6 @@ class HomePage extends BasePage {
         return "/inventory.html";
     }
 
-    static get stackIcon() {
-        return cy.get("xxx");
-    }
 
     static get sideBar() {
         return cy.get(".mb-menu-wrap");
